@@ -13,6 +13,17 @@
   --shadow: 0 18px 54px rgba(31, 58, 95, 0.11);
 }
 
+@keyframes questionIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -600,6 +611,18 @@ h1 {
   margin-bottom: 20px;
 }
 
+.question-stage {
+  animation: questionIn 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: opacity 180ms ease, transform 180ms ease, filter 180ms ease;
+  will-change: opacity, transform;
+}
+
+.question-stage.is-exiting {
+  opacity: 0;
+  transform: translateY(-8px);
+  filter: blur(1px);
+}
+
 .question-context {
   margin: 0 0 8px;
   color: var(--teal);
@@ -613,6 +636,11 @@ h1 {
 }
 
 .option-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   width: 100%;
   min-height: 58px;
   padding: 15px 16px;
@@ -623,12 +651,42 @@ h1 {
   cursor: pointer;
   text-align: left;
   line-height: 1.5;
+  box-shadow: 0 8px 22px rgba(31, 58, 95, 0);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
 }
 
 .option-button:hover,
 .option-button.is-selected {
   border-color: rgba(35, 122, 115, 0.45);
   background: rgba(35, 122, 115, 0.07);
+}
+
+.option-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(31, 58, 95, 0.06);
+}
+
+.option-button:active {
+  transform: scale(0.992);
+}
+
+.option-button.is-selected {
+  color: var(--navy);
+  box-shadow: 0 12px 28px rgba(35, 122, 115, 0.12);
+  transform: translateY(-1px);
+}
+
+.option-button.is-selected svg {
+  flex: 0 0 auto;
+  color: var(--teal);
+}
+
+.option-button.is-muted {
+  opacity: 0.48;
+}
+
+.option-button:disabled {
+  cursor: default;
 }
 
 .soft-hint {
@@ -1150,4 +1208,15 @@ h1 {
     font-size: 24px;
   }
 
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
