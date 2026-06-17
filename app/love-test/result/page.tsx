@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { ArrowDown, ArrowLeft, LockKeyhole, RotateCcw, Sparkles } from "lucide-react";
+import { ArrowDown, ArrowLeft, Copy, LockKeyhole, RotateCcw, Sparkles } from "lucide-react";
 import { calculateLoveResult, type LoveAnswerMap, type LoveResult } from "@/lib/love-test/rules";
 import { reportPlans, type ReportPlanId } from "@/lib/payments/plans";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase/client";
@@ -26,6 +26,7 @@ export default function LoveTestResultPage() {
   const [guestId, setGuestId] = useState<string | null>(null);
   const [testSessionId, setTestSessionId] = useState<string | null>(null);
   const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
+  const [shareState, setShareState] = useState<"idle" | "copied" | "error">("idle");
   const [checkoutState, setCheckoutState] = useState<{
     planId: ReportPlanId | null;
     message: string | null;
@@ -70,6 +71,14 @@ export default function LoveTestResultPage() {
     return calculateLoveResult(answers);
   }, [answers]);
 
+  const spectrumProfiles = useMemo(() => {
+    if (!result) {
+      return [];
+    }
+
+    return Object.values(result.dimensionProfiles).sort((a, b) => b.index - a.index);
+  }, [result]);
+
   useEffect(() => {
     if (!result || !answers || !testSessionId || !isSupabaseConfigured || !supabase) {
       return;
@@ -110,6 +119,17 @@ export default function LoveTestResultPage() {
 
     window.location.assign(checkoutUrl);
   }, [checkoutUrl]);
+
+  async function copyResultLink() {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setShareState("copied");
+      window.setTimeout(() => setShareState("idle"), 2400);
+    } catch {
+      setShareState("error");
+      window.setTimeout(() => setShareState("idle"), 2400);
+    }
+  }
 
   async function startCheckout(planId: ReportPlanId) {
     if (!guestId || !testSessionId) {
@@ -234,23 +254,55 @@ export default function LoveTestResultPage() {
 
           <div className="result-reader-path" aria-label="閱讀順序">
             <span>先看人格卡</span>
-            <span>再看戳心三問</span>
+            <span>再看關係光譜</span>
             <span>最後決定要不要解鎖完整檔案</span>
           </div>
 
-          <div className="share-card" aria-label="人格分享卡">
+          <div className="share-card share-card-premium" aria-label="人格分享卡">
+            <span className="share-card-stamp">OFFICIAL PROFILE</span>
             <div>
               <span className="share-card-brand">Relationship Blueprint</span>
               <h2>{result.archetypeLabel}</h2>
             </div>
             <p>「{result.signatureQuote}」</p>
-            <span className="share-card-mark">Relationship Blueprint</span>
+            <span className="share-card-mark">專屬感情人格檔案</span>
           </div>
 
-          <a className="scroll-cue result-cue" href="#heart-check">
-            <span>往下看，這份檔案會說出你關係裡最難承認的部分</span>
+          <div className="share-actions">
+            <button className="button button-secondary" type="button" onClick={copyResultLink}>
+              <Copy size={18} aria-hidden="true" />
+              複製結果連結
+            </button>
+            <span>也可以直接截圖上方人格卡，傳給朋友看。</span>
+          </div>
+          {shareState === "copied" && <p className="share-feedback">已複製連結，可以傳給朋友一起看。</p>}
+          {shareState === "error" && <p className="share-feedback">目前無法複製連結，你可以直接截圖分享。</p>}
+
+          <a className="scroll-cue result-cue" href="#spectrum">
+            <span>往下看，你會看到這份檔案如何把你的反應變成可理解的模式</span>
             <ArrowDown size={16} aria-hidden="true" />
           </a>
+
+          <section id="spectrum" className="spectrum-section" aria-labelledby="spectrum-title">
+            <p className="result-kicker">關係光譜</p>
+            <h2 id="spectrum-title">你的感情模式分佈</h2>
+            <p>
+              這不是考試分數，而是用數據感幫你看見：你在不同關係情境裡，哪些反應最常被觸發。
+            </p>
+            <div className="spectrum-list">
+              {spectrumProfiles.map((profile) => (
+                <div className="spectrum-row" key={profile.label}>
+                  <div className="spectrum-meta">
+                    <span>{profile.label}</span>
+                    <strong>{profile.index}%</strong>
+                  </div>
+                  <div className="spectrum-track">
+                    <div className="spectrum-fill" style={{ width: `${profile.index}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
 
           <section className="report-section" aria-labelledby="about-you-title">
             <p className="result-kicker">關於你</p>
@@ -324,9 +376,9 @@ export default function LoveTestResultPage() {
             <h2>完整檔案會繼續回答：為什麼你會這樣，以及下一次可以怎麼不再重演。</h2>
           </div>
 
-          <div className="pricing-section" aria-labelledby="paid-report-title">
+          <div className="pricing-section pricing-premium" aria-labelledby="paid-report-title">
             <p className="result-kicker">完整人格檔案</p>
-            <h2 id="paid-report-title">解鎖完整感情人格檔案</h2>
+            <h2 id="paid-report-title">感情的解法，藏在對模式的覺察裡。</h2>
             <p>
               免費結果會先讓你看見自己的主要模式；完整檔案會把那些「我為什麼又這樣」的反覆情境，
               轉成更清楚的答案與下一步。
@@ -342,12 +394,8 @@ export default function LoveTestResultPage() {
               {Object.values(reportPlans).map((plan) => (
                 <article className="pricing-card" key={plan.id}>
                   <div>
-                    <h3>{plan.id === "basic" ? "Basic：快速完整檔案" : "Deep：深度完整檔案"}</h3>
-                    <p>
-                      {plan.id === "basic"
-                        ? "適合想先看清自己主要關係模式，並得到一個可立即使用方向的人。"
-                        : "適合想深入理解吸引模式、受傷情境與長期關係選擇的人。"}
-                    </p>
+                    <h3>{plan.name}</h3>
+                    <p>{plan.description}</p>
                   </div>
                   <strong>NT${plan.amount}</strong>
                   <button

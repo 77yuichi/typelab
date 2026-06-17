@@ -4,19 +4,23 @@ import { ArrowDown, ArrowRight, Brain, Compass, ShieldCheck, Sparkles } from "lu
 const archetypePreviews = [
   {
     name: "理性觀察者",
-    quote: "你其實不是慢熱，你只是知道，心動很容易，但信任很難。"
+    badge: "信任建立型",
+    quote: "你其實不是慢熱。你只是知道，心動很容易，但信任很難。"
   },
   {
     name: "守護型戀人",
+    badge: "穩定照顧型",
     quote: "你總是先照顧別人，卻很少有人發現你也需要被照顧。"
   },
   {
     name: "獨立旅人",
+    badge: "自由邊界型",
     quote: "你可以很愛一個人，但你不想為了被愛，變得不像自己。"
   },
   {
     name: "深情投入者",
-    quote: "你不是想太多，你只是把每個細節都放進心裡確認。"
+    badge: "高敏投入型",
+    quote: "你不是想太多，你只是把每個細節都放進心裡確認自己還重不重要。"
   }
 ];
 
@@ -46,15 +50,15 @@ export default function HomePage() {
             </h1>
             <p className="lead">
               有些關係不是突然變壞，而是你很早就感覺到了，只是不知道該怎麼解讀。
-              用 3 分鐘回顧你在感情裡最常出現的反應，整理出你的關係模式與真正需求。
+              用 3 分鐘回顧你在感情裡最常出現的反應，整理出你的關係模式、情緒觸發點與真正需求。
             </p>
             <div className="hero-actions">
               <Link className="button button-primary button-large" href="/love-test">
-                開始分析
+                開始 3 分鐘分析
                 <ArrowRight size={18} aria-hidden="true" />
               </Link>
-              <a className="button button-secondary" href="#journey">
-                先往下看看
+              <a className="button button-secondary" href="#preview">
+                先看結果長什麼樣
                 <ArrowDown size={18} aria-hidden="true" />
               </a>
             </div>
@@ -64,20 +68,28 @@ export default function HomePage() {
             </a>
           </div>
 
-          <div className="insight-panel" aria-label="人格分析預覽">
-            <div className="insight-header">
+          <div className="hero-dossier" aria-label="感情人格檔案預覽">
+            <div className="dossier-topline">
               <span>Relationship Blueprint</span>
-              <strong>3 min</strong>
+              <strong>42 scenarios</strong>
             </div>
-            <div className="insight-note">
-              <p>你真正想確認的，也許不是「對方適不適合」。</p>
-              <p>而是為什麼每一次靠近，你都會在相似的地方開始不安、忍耐，或退後。</p>
-            </div>
-            <div className="insight-list">
-              <span>你容易被什麼吸引</span>
-              <span>你在哪裡最容易受傷</span>
-              <span>你真正需要的安全感</span>
-              <span>你反覆重演的關係選擇</span>
+            <div className="dossier-card">
+              <span className="dossier-stamp">PROFILE CARD</span>
+              <p className="dossier-label">你的專屬情感人格卡</p>
+              <h2>理性觀察者</h2>
+              <p className="dossier-quote">
+                你其實不是慢熱。
+                <br />
+                你只是知道，
+                <br />
+                心動很容易，
+                <br />
+                但信任很難。
+              </p>
+              <div className="dossier-footer">
+                <span>Relationship Blueprint</span>
+                <span>ID #042B</span>
+              </div>
             </div>
           </div>
         </section>
@@ -112,6 +124,27 @@ export default function HomePage() {
           </div>
         </section>
 
+        <section id="preview" className="section preview-stage" aria-labelledby="preview-title">
+          <div className="preview-copy">
+            <p className="eyebrow">人格卡預覽</p>
+            <h2 id="preview-title">結果會像一張可以截圖的感情人格卡。</h2>
+            <p>
+              先讓你被一句話擊中，再慢慢展開關於你、你的需求、你的盲點與成長方向。
+              這不是要你相信一個標籤，而是讓你看見自己反覆出現的關係選擇。
+            </p>
+          </div>
+          <div className="archetype-preview-grid">
+            {archetypePreviews.map((item) => (
+              <article className="archetype-preview-card" key={item.name}>
+                <span>Relationship Blueprint</span>
+                <h3>{item.name}</h3>
+                <small>{item.badge}</small>
+                <p>「{item.quote}」</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <section className="section transition-band">
           <p>如果你曾經想過：「為什麼我每次都卡在同一種關係裡？」</p>
           <h2>這份分析會先替你把那個循環說清楚。</h2>
@@ -119,27 +152,6 @@ export default function HomePage() {
             開始看懂自己的模式
             <ArrowRight size={18} aria-hidden="true" />
           </Link>
-        </section>
-
-        <section className="section" aria-labelledby="archetype-preview-title">
-          <div className="section-header">
-            <div>
-              <p className="eyebrow">人格卡預覽</p>
-              <h2 id="archetype-preview-title" className="section-title">
-                結果會像一張可以截圖的感情人格卡。
-              </h2>
-            </div>
-          </div>
-
-          <div className="archetype-preview-grid">
-            {archetypePreviews.map((item) => (
-              <article className="archetype-preview-card" key={item.name}>
-                <span>Relationship Blueprint</span>
-                <h3>{item.name}</h3>
-                <p>「{item.quote}」</p>
-              </article>
-            ))}
-          </div>
         </section>
 
         <section id="framework" className="section">

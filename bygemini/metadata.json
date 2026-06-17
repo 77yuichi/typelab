@@ -1,0 +1,6 @@
+{
+  "name": "感情人格分析",
+  "description": "一份專屬於你的感情人格檔案，幫助你探索內心的關係盲點、渴望與核心安全感需求。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
