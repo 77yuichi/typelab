@@ -59,7 +59,7 @@ export default function LoveTestPage() {
   return (
     <main>
       <div className="test-wrap">
-        <nav className="top-nav" aria-label="分析導覽">
+        <nav className="top-nav" aria-label="分析頁導覽">
           <Link className="brand" href="/">
             <span className="brand-mark">
               <Sparkles size={18} aria-hidden="true" />
@@ -72,11 +72,18 @@ export default function LoveTestPage() {
           <div className="assessment-intro">
             <p className="eyebrow">感情人格分析</p>
             <h1 id="assessment-title" className="question-title">
-              建立你的感情人格檔案
+              先不要想標準答案，只要選最像你的反應。
             </h1>
             <p>
-              請依照第一直覺選擇最接近你的反應。題目沒有標準答案，重點是捕捉你在關係情境中的自然模式。
+              這不是考試，也不是要判斷你是哪種人。每一題都來自常見的關係情境，
+              你只需要回到當下，選出最接近自己會做的選擇。
             </p>
+          </div>
+
+          <div className="assessment-guide" aria-label="分析流程提示">
+            <span>1. 回到情境</span>
+            <span>2. 選最接近的反應</span>
+            <span>3. 生成你的個人檔案</span>
           </div>
 
           <div className="progress" aria-label="分析進度">
@@ -91,7 +98,10 @@ export default function LoveTestPage() {
             </div>
           </div>
 
-          <h2 className="scenario-title">{currentQuestion.prompt}</h2>
+          <div className="question-block">
+            <p className="question-context">想像這是最近真的發生在你身上的情境。</p>
+            <h2 className="scenario-title">{currentQuestion.prompt}</h2>
+          </div>
 
           <div className="option-list" role="radiogroup" aria-label={currentQuestion.prompt}>
             {currentQuestion.options.map((option) => {
@@ -112,6 +122,10 @@ export default function LoveTestPage() {
             })}
           </div>
 
+          <p className="soft-hint">
+            如果兩個選項都像你，選那個「你比較不想承認，但更常發生」的反應。
+          </p>
+
           <div className="test-actions">
             <button
               className="button button-secondary"
@@ -125,7 +139,7 @@ export default function LoveTestPage() {
             <button className="button button-primary" type="button" onClick={goNext} disabled={!canGoNext}>
               {isLastQuestion ? (
                 <>
-                  查看分析結果
+                  查看我的檔案
                   <Check size={18} aria-hidden="true" />
                 </>
               ) : (

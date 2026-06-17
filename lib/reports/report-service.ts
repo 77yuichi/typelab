@@ -202,34 +202,39 @@ function generateMockReport(input: GenerateReportInput): AIReportContent {
   const isDeep = input.planId === "deep";
 
   return {
-    title: `${plan?.name ?? "完整感情人格檔案"}已建立`,
+    title: `${plan?.name ?? "完整感情人格檔案"}已準備好`,
     summary:
-      "這是一份預覽模式下產生的完整檔案示範，用來呈現付費後的閱讀結構與分析深度。",
+      "這份檔案會把你在關係裡反覆出現的選擇整理成更清楚的語言。你會看到自己容易被什麼吸引、在哪些情境最容易受傷，以及下一次可以如何更穩定地回到自己。",
     sections: [
       {
-        heading: "深層感情模式",
+        heading: "為什麼你總是被某種類型的人吸引",
         body: isDeep
-          ? "你的關係反應裡同時有「想被穩定選擇」與「不想失去自我節奏」兩股力量。當對方靠近時，你會感到被重視；但當靠近伴隨壓力或要求，你也會開始尋找退回自己的空間。"
-          : "你的作答呈現出一個清楚的關係主題：你需要能被感受到的穩定，也需要關係保留足夠的呼吸感。"
+          ? "你容易被帶有強烈情緒訊號、需要被理解，或讓你覺得自己很特別的人吸引。那種被需要的感覺，會讓你很快投入；但如果對方忽冷忽熱，你也會更容易把注意力放在如何重新拿回那份確認。"
+          : "你在關係裡很容易被熟悉的互動模式吸引。不是因為那一定適合你，而是它讓你很快知道自己該扮演什麼角色。"
       },
       {
-        heading: "情緒觸發點",
+        heading: "你最容易在什麼情況下受傷",
         body:
-          "當重要的人態度變得模糊、回應變短，或沒有交代下一步安排時，你可能會比表面上更快進入警覺狀態。真正觸發你的不只是事件本身，而是「我是否仍然重要」這個問題。"
+          "當你已經開始投入，卻感覺對方的回應變少、態度變淡，或沒有把你放在同樣重要的位置時，你會特別容易受傷。你不一定會立刻說出口，但心裡可能已經開始反覆整理每個細節。"
       },
       {
-        heading: "關係盲區提醒",
+        heading: "你在感情中的盲點",
         body:
-          "你可能很擅長觀察對方，卻比較少直接說出自己的需要。當你等待對方自己理解時，關係容易進入猜測與失落的循環。"
+          "你有時候太快把焦點放在對方要什麼，反而比較慢確認自己是不是舒服。當你習慣先理解對方，就容易把自己的不安包裝成懂事，直到情緒累積到很難再假裝沒事。"
+      },
+      {
+        heading: "什麼樣的人最適合你",
+        body:
+          "適合你的人不是永遠不讓你不安，而是願意在你不安時好好回應的人。穩定、一致、願意溝通，並且能看見你努力的人，會比只給你強烈心動的人更能讓你安心。"
       }
     ],
     nextSteps: isDeep
       ? [
-          "寫下你最常反覆出現的關係情境：等待、確認、退開，或過度承擔。",
-          "選一個你想保護的界線，並把它改寫成對方聽得懂的具體句子。",
-          "安排一次不指責的對話，只談一件你希望被理解的需求。"
+          "下一次開始猜測對方想法時，先問自己：我現在需要的是答案，還是被安撫？",
+          "在關係初期觀察對方是否穩定一致，而不是只看對方是否讓你心動。",
+          "把「我沒事」換成一句更接近真實需求的話，例如：我需要一點確認。"
         ]
-      : ["選一個小行動，讓你的關係需求在這週變得更清楚。"]
+      : ["先記下最近一次讓你不安的關係情境，再回頭看：你當時真正想得到的是什麼？"]
   };
 }
 
@@ -257,11 +262,11 @@ async function generateLiveReport(input: GenerateReportInput): Promise<AIReportC
         {
           role: "system",
           content:
-            "You create concise self-discovery reports. Return valid JSON with title, summary, sections, and nextSteps."
+            "You create concise Traditional Chinese relationship self-discovery reports. Return valid JSON with title, summary, sections, and nextSteps."
         },
         {
           role: "user",
-          content: `Create a ${input.planId} love self-discovery report for test_session_id ${input.testSessionId}.`
+          content: `Create a ${input.planId} relationship blueprint report for test_session_id ${input.testSessionId}.`
         }
       ],
       text: {

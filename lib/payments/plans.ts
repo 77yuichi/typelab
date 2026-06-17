@@ -12,19 +12,19 @@ export type ReportPlan = {
 export const reportPlans: Record<ReportPlanId, ReportPlan> = {
   basic: {
     id: "basic",
-    name: "Basic AI Report",
+    name: "Basic：快速完整檔案",
     amount: 49,
     currency: "TWD",
-    description: "A concise AI-style love insight report for your test result.",
-    bullets: ["Core love pattern", "Relationship reminder", "One next step"]
+    description: "適合想先看清自己主要關係模式，並得到一個可立即使用方向的人。",
+    bullets: ["主要關係模式", "最容易受傷的位置", "一個下一步建議"]
   },
   deep: {
     id: "deep",
-    name: "Deep AI Report",
+    name: "Deep：深度完整檔案",
     amount: 99,
     currency: "TWD",
-    description: "A deeper mock report with pattern, blind spot, and next-step guidance.",
-    bullets: ["Deep relationship pattern", "Potential blind spot", "Three-step guidance"]
+    description: "適合想深入理解吸引模式、盲點與長期關係選擇的人。",
+    bullets: ["吸引模式解析", "關係盲點提醒", "穩定關係方向"]
   }
 };
 

@@ -175,6 +175,22 @@ h1 {
   background: var(--white);
 }
 
+.button-large {
+  min-height: 52px;
+  padding: 0 22px;
+  font-size: 16px;
+}
+
+.scroll-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
 .insight-panel {
   padding: 24px;
   border: 1px solid rgba(31, 58, 95, 0.1);
@@ -250,6 +266,10 @@ h1 {
   padding: 38px 0 72px;
 }
 
+.flow-section {
+  padding-top: 20px;
+}
+
 .section-header {
   display: flex;
   align-items: flex-end;
@@ -268,6 +288,87 @@ h1 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
+}
+
+.journey-grid,
+.archetype-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.journey-step,
+.archetype-preview-card {
+  padding: 22px;
+  border: 1px solid rgba(31, 58, 95, 0.1);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: 0 12px 34px rgba(31, 58, 95, 0.06);
+}
+
+.journey-step span,
+.archetype-preview-card span {
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.journey-step h3,
+.archetype-preview-card h3 {
+  margin: 12px 0 10px;
+  color: var(--navy);
+  font-size: 20px;
+}
+
+.journey-step p,
+.archetype-preview-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.archetype-preview-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.archetype-preview-card {
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+}
+
+.archetype-preview-card p {
+  margin-top: auto;
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.transition-band,
+.final-cta {
+  display: grid;
+  justify-items: start;
+  gap: 14px;
+  margin: 10px 0 34px;
+  padding: 34px;
+  border: 1px solid rgba(31, 58, 95, 0.1);
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(238, 242, 246, 0.86));
+}
+
+.transition-band p,
+.final-cta p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.transition-band h2,
+.final-cta h2 {
+  max-width: 780px;
+  margin: 0;
+  color: var(--navy);
+  font-size: 30px;
+  line-height: 1.24;
 }
 
 .feature-card,
@@ -322,6 +423,24 @@ h1 {
   line-height: 1.72;
 }
 
+.assessment-guide {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.assessment-guide span {
+  padding: 10px 12px;
+  border: 1px solid rgba(31, 58, 95, 0.1);
+  border-radius: 8px;
+  color: var(--navy);
+  background: var(--paper);
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+}
+
 .progress {
   display: grid;
   gap: 10px;
@@ -361,6 +480,17 @@ h1 {
   line-height: 1.42;
 }
 
+.question-block {
+  margin-bottom: 20px;
+}
+
+.question-context {
+  margin: 0 0 8px;
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 900;
+}
+
 .option-list {
   display: grid;
   gap: 10px;
@@ -383,6 +513,13 @@ h1 {
 .option-button.is-selected {
   border-color: rgba(35, 122, 115, 0.45);
   background: rgba(35, 122, 115, 0.07);
+}
+
+.soft-hint {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 .test-actions {
@@ -436,6 +573,24 @@ h1 {
   display: block;
   margin-top: 8px;
   font-size: 18px;
+}
+
+.result-reader-path {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.result-reader-path span {
+  padding: 10px 12px;
+  border: 1px solid rgba(31, 58, 95, 0.1);
+  border-radius: 8px;
+  color: var(--navy);
+  background: var(--paper);
+  font-size: 13px;
+  font-weight: 900;
+  text-align: center;
 }
 
 .share-card {
@@ -493,6 +648,15 @@ h1 {
   color: var(--navy);
   font-size: 12px;
   font-weight: 900;
+}
+
+.result-cue {
+  width: 100%;
+  justify-content: center;
+  padding: 12px;
+  border: 1px dashed rgba(31, 58, 95, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.7);
 }
 
 .report-section,
@@ -562,6 +726,11 @@ h1 {
   border: 1px solid rgba(31, 58, 95, 0.1);
   border-radius: 8px;
   background: var(--paper);
+}
+
+.result-transition {
+  margin-top: 26px;
+  margin-bottom: 0;
 }
 
 .pricing-section h2,
@@ -665,10 +834,14 @@ h1 {
 @media (max-width: 860px) {
   .hero,
   .feature-grid,
+  .journey-grid,
+  .archetype-preview-grid,
   .result-grid,
   .dimension-grid,
   .pricing-grid,
   .profile-summary,
+  .assessment-guide,
+  .result-reader-path,
   .heart-check-grid,
   .upgrade-list {
     grid-template-columns: 1fr;
@@ -714,6 +887,20 @@ h1 {
 
   .button {
     width: 100%;
+  }
+
+  .share-card p {
+    font-size: 23px;
+  }
+
+  .transition-band,
+  .final-cta {
+    padding: 22px;
+  }
+
+  .transition-band h2,
+  .final-cta h2 {
+    font-size: 24px;
   }
 
 }

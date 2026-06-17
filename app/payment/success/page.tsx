@@ -90,48 +90,54 @@ export default async function PaymentSuccessPage({ searchParams }: SuccessPagePr
   return (
     <main>
       <div className="test-wrap">
-        <nav className="top-nav" aria-label="Payment navigation">
+        <nav className="top-nav" aria-label="付款成功頁導覽">
           <Link className="brand" href="/">
             <span className="brand-mark">
               <Sparkles size={18} aria-hidden="true" />
             </span>
-            <span>AI Self Discovery</span>
+            <span>Relationship Blueprint</span>
           </Link>
         </nav>
 
         <section className="result-panel" aria-labelledby="payment-success-title">
-          <p className="result-kicker">付款完成</p>
+          <p className="result-kicker">完整檔案已解鎖</p>
           <h1 id="payment-success-title" className="result-title">
-            {report ? "完整感情人格檔案已解鎖" : "正在建立完整感情人格檔案"}
+            {report ? "你的完整感情人格檔案已準備好" : "正在準備你的完整感情人格檔案"}
           </h1>
           <p className="result-summary">
             {aiMode === "mock"
-              ? "目前為預覽模式，系統會顯示一份示範完整檔案，不會消耗 API 額度。"
-              : "你的完整檔案正在透過報告服務建立。"}
+              ? "目前是測試模式，不會產生實際外部生成成本。你仍然可以先檢查完整檔案的閱讀流程與轉換體驗。"
+              : "你的完整檔案正在生成中，完成後會在這裡顯示。"}
           </p>
+
+          <div className="result-reader-path" aria-label="接下來的步驟">
+            <span>付款完成</span>
+            <span>檔案解鎖</span>
+            <span>查看完整分析</span>
+          </div>
 
           <div className="result-grid">
             <article className="result-card">
               <h3>{plan?.name ?? "完整感情人格檔案"}</h3>
               <p>
                 {plan
-                  ? `已解鎖方案：${plan.name}，NT$${plan.amount}。`
-                  : "目前缺少方案資訊，暫時無法建立完整檔案。"}
+                  ? `你已選擇 ${plan.name}，金額 NT$${plan.amount}。`
+                  : "目前缺少方案資訊，因此暫時無法確認檔案內容。"}
               </p>
             </article>
             <article className="result-card">
               <h3>狀態</h3>
               <p>
                 {isPlaceholder
-                  ? "目前使用付款預覽流程。設定 Stripe 環境變數後即可啟用測試付款。"
-                  : `付款狀態：${payment.status ?? "確認中"}。`}
+                  ? "目前使用付款測試提示。設定 Stripe 環境變數後，這裡會顯示真實付款狀態。"
+                  : `付款狀態：${payment.status ?? "等待確認"}。`}
               </p>
             </article>
           </div>
 
           {report ? (
             <div className="mock-report">
-              <p className="result-kicker">{report.mode === "mock" ? "示範完整檔案" : "完整檔案"}</p>
+              <p className="result-kicker">{report.mode === "mock" ? "測試完整檔案" : "完整人格檔案"}</p>
               <h2>{report.content.title}</h2>
               <p>{report.content.summary}</p>
 
@@ -144,7 +150,7 @@ export default async function PaymentSuccessPage({ searchParams }: SuccessPagePr
                 ))}
               </div>
 
-              <h3>下一步建議</h3>
+              <h3>下一步你可以這樣做</h3>
               <ul>
                 {report.content.nextSteps.map((step) => (
                   <li key={step}>{step}</li>
@@ -153,31 +159,31 @@ export default async function PaymentSuccessPage({ searchParams }: SuccessPagePr
 
               <div className="hero-actions">
                 <Link className="button button-primary" href={`/report/${report.accessToken}`}>
-                  開啟專屬檔案連結
+                  查看完整檔案
                   <ExternalLink size={18} aria-hidden="true" />
                 </Link>
               </div>
 
               <p className="notice">
-                專屬檔案連結：<Link href={`/report/${report.accessToken}`}>{report.reportUrl}</Link>
+                你的檔案連結：<Link href={`/report/${report.accessToken}`}>{report.reportUrl}</Link>
               </p>
               {!report.persisted && (
                 <p className="notice">
-                  目前尚未設定 Supabase service role，因此此檔案只會在本頁顯示，尚未寫入 ai_reports。
+                  目前尚未設定 Supabase service role，因此此測試檔案只在本次流程中顯示，尚未寫入 ai_reports。
                 </p>
               )}
             </div>
           ) : (
             <div className="mock-report">
               <p className="result-kicker">檔案建立中</p>
-              <h2>正在建立完整感情人格檔案</h2>
-              <p>目前缺少方案或分析識別資料。請回到免費結果頁重新解鎖。</p>
+              <h2>我們正在整理你的完整檔案</h2>
+              <p>目前缺少必要的方案或測驗紀錄資訊。請回到免費結果頁重新解鎖。</p>
             </div>
           )}
 
           <div className="hero-actions">
             <Link className="button button-secondary" href="/love-test/result">
-              回到免費結果
+              回免費結果頁
             </Link>
             <Link className="button button-secondary" href="/">
               <ArrowLeft size={18} aria-hidden="true" />

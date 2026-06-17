@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { ArrowLeft, LockKeyhole, RotateCcw, Sparkles } from "lucide-react";
+import { ArrowDown, ArrowLeft, LockKeyhole, RotateCcw, Sparkles } from "lucide-react";
 import { calculateLoveResult, type LoveAnswerMap, type LoveResult } from "@/lib/love-test/rules";
 import { reportPlans, type ReportPlanId } from "@/lib/payments/plans";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase/client";
@@ -232,6 +232,12 @@ export default function LoveTestResultPage() {
             {result.title}
           </h1>
 
+          <div className="result-reader-path" aria-label="閱讀順序">
+            <span>先看人格卡</span>
+            <span>再看戳心三問</span>
+            <span>最後決定要不要解鎖完整檔案</span>
+          </div>
+
           <div className="share-card" aria-label="人格分享卡">
             <div>
               <span className="share-card-brand">Relationship Blueprint</span>
@@ -241,13 +247,18 @@ export default function LoveTestResultPage() {
             <span className="share-card-mark">Relationship Blueprint</span>
           </div>
 
+          <a className="scroll-cue result-cue" href="#heart-check">
+            <span>往下看，這份檔案會說出你關係裡最難承認的部分</span>
+            <ArrowDown size={16} aria-hidden="true" />
+          </a>
+
           <section className="report-section" aria-labelledby="about-you-title">
             <p className="result-kicker">關於你</p>
             <h2 id="about-you-title">你在關係裡最常被誤解的地方</h2>
             <p className="result-summary">{result.aboutYou}</p>
           </section>
 
-          <section className="heart-check" aria-labelledby="heart-check-title">
+          <section id="heart-check" className="heart-check" aria-labelledby="heart-check-title">
             <p className="result-kicker">最戳心的地方</p>
             <h2 id="heart-check-title">也許你真正想知道的是這些</h2>
             <div className="heart-check-grid">
@@ -306,6 +317,11 @@ export default function LoveTestResultPage() {
               <h3>成長方向</h3>
               <p>{result.growthDirection}</p>
             </article>
+          </div>
+
+          <div className="transition-band result-transition">
+            <p>如果你看到這裡，有一段覺得被說中。</p>
+            <h2>完整檔案會繼續回答：為什麼你會這樣，以及下一次可以怎麼不再重演。</h2>
           </div>
 
           <div className="pricing-section" aria-labelledby="paid-report-title">
